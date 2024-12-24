@@ -1,0 +1,25 @@
+@media(max-width:790px){
+    .pages{
+        display: none;
+    }
+    .section_absolute h1{
+        font-size: 20px;
+    }
+    .position img{
+        max-height: 400px;
+        min-height: 400px;
+    }
+    .about-item{
+        flex-direction: column;
+    }
+    .service{
+        flex-direction: column;
+    }
+    .gruxchik{
+        width: 100%;
+        text-align: center;
+    }
+    .grid{
+        grid-template-columns: 1fr;
+    }
+}
