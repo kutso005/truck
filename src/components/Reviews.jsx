@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import marat from "./../assets/image/mart.jpg";
+import { get } from "../API/api";
 
 export default function Reviews() {
+  const [qualities, setQualities] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await get.getReview();
+        console.log("Алынган маалымат:", response);
+
+        setQualities(response);
+      } catch (error) {
+        console.error("Ошибка при получении данных:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const reviews = [
     {
       id: 1,
@@ -36,7 +52,7 @@ export default function Reviews() {
       
 
         <div className="reviews-grid">
-          {reviews.map((review) => (
+          {qualities.map((review) => (
             <div key={review.id} className="review-card">
               <div className="review-image">
                 <img src={review.image} alt={review.name} />

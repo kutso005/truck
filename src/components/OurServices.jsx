@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img from "./../assets/image/icons8-home-48.png";
+import { get } from "../API/api";
 export default function OurServices() {
   const data = [
     {
@@ -27,22 +28,40 @@ export default function OurServices() {
         "  Наша основная специализация это перевозки безопасных и упакованных  грузов, для таких отраслей, как, например, производство бытовых  товаров, деревообрабатывающая, бумажная, химическая,  металлообрабатывающая, автомобильная и электротехническая  промышленности.",
     },
   ];
+  const [qualities, setQualities] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await get.getSecvice();
+        console.log("Алынган маалымат:", response);
+
+        setQualities(response);
+      } catch (error) {
+        console.error("Ошибка при получении данных:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
-    <div className="container">
+  <div id="our">
+      <div className="container">
       <h1 className="title-service">Наши услуги</h1>
       <div className="grid">
-        {data.map((el) => (
+        {qualities.map((el) => (
           <div className="service">
             <div className="service-text">
-              <img className="service-img" src={el.img} alt="" />
+              <img className="service-img" src={el.image} alt="" />
             </div>
             <div className="gruxchik">
-              <h1>{el.text}</h1>
-              <p>{el.title}</p>
+              <h1>{el.title}</h1>
+              {/* <p>{el.text}</p> */}
             </div>
           </div>
         ))}
       </div>
     </div>
+  </div>
   );
 }

@@ -8,8 +8,27 @@ import Reviews from "./components/Reviews";
 import Section from "./components/Section";
 import Worked from "./components/Worked";
 import ContactButtons from "./components/ContactButtons";
+import { useEffect } from "react";
+import { get } from "./API/api";
 
 function App() {
+  useEffect(() => {
+    const fetchLogoData = async () => {
+      try {
+        const response = await get.getLogo();
+        const { favicon } = response[0];
+
+        const linkElement = document.querySelector("link[rel='icon']");
+        if (linkElement) {
+          linkElement.href = favicon;
+        }
+      } catch (error) {
+        console.error("Ошибка при получении данных:", error);
+      }
+    };
+
+    fetchLogoData();
+  }, []);
   return (
     <div className="App">
       <Header />
